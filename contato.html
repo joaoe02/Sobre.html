@@ -10,9 +10,9 @@
 
 <body>
     <img src="img/logo.svg" alt="">
-    <h1 class="titulo"> Entre em contato</h1>
-    
-    <form action="#" method="post">
+    <h1 class="titulo">Entre em contato</h1>
+
+    <form action="#" method="post" onsubmit="return validarFormulario()">
         <div class="input-container">
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" autocomplete="name" required placeholder="Seu nome">
@@ -35,6 +35,39 @@
 
         <button type="submit">Enviar</button>
     </form>
+
+    <script>
+        function validarFormulario() {
+            var nome = document.getElementById("nome").value;
+            var telefone = document.getElementById("telefone").value;
+            var email = document.getElementById("email").value;
+            var opiniao = document.getElementById("observacao").value;
+
+            if (nome.trim() === "" || nome.length < 10) {
+                alert("Por favor, insira um nome com pelo menos 10 caracteres.");
+                return false;
+            }
+
+            if (telefone.trim() === "" || telefone.length !== 14) {
+                alert("Por favor, insira um número de telefone no formato correto (xx) xxxxx-xxxx.");
+                return false;
+            }
+
+            var emailRegex = /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (email.trim() === "" || !email.match(emailRegex)) {
+                alert("Por favor, insira um endereço de e-mail válido.");
+                return false;
+            }
+
+            if (opiniao.trim() === "" || opiniao.length < 10 || opiniao.length > 50) {
+                alert("Por favor, insira uma opinião com no mínimo 10 e no máximo 50 caracteres.");
+                return false;
+            }
+
+            // Se todas as validações forem bem-sucedidas, o formulário será enviado
+            return true;
+        }
+    </script>
 </body>
 
 </html>
